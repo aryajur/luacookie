@@ -427,13 +427,13 @@ local function endSession(store)
 	return store,#store
 end
 
-function new()
-	local store = {}
+function new(store)
+	store = store or {}
 	local storeMT = {
 		__index = {
 			add = function(header,requestURI)
 				if not header["set-cookie"] then
-					return nil,"Login Cookie not found."
+					return true,"Login Cookie not found."	-- Nothing needs to be added here
 				end
 				--print("ADD COOKIE TO STORE:")
 				--print(header["set-cookie"])
